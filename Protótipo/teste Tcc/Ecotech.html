@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ecotech: Localizador para Descarte Sustentável</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #e8f5e9;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #388e3c;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    nav {
+      display: flex;
+      background-color: #66bb6a;
+      justify-content: center;
+    }
+    nav button {
+      background-color: #66bb6a;
+      color: white;
+      border: none;
+      padding: 14px 20px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    nav button:hover {
+      background-color: #388e3c;
+    }
+    section {
+      display: none;
+      padding: 20px;
+    }
+    section.active {
+      display: block;
+    }
+    iframe {
+      width: 100%;
+      height: 300px;
+      border: none;
+    }
+    .form-group {
+      margin-bottom: 10px;
+    }
+    label, select, input {
+      display: block;
+      margin-top: 5px;
+    }
+    img {
+      max-width: 200px;
+      margin: 10px 0;
+    }
+    footer {
+      background-color: #333;
+      color: fff;
+      text-align: center;
+      padding: 10px ;
+      position: fixed;
+      bottom: 0%;
+        width: 100%;
+      font-size: 16px;
+    }
+    
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Ecotech: Localizador para Descarte Sustentável</h1>
+    <h2>Encontre os locais mais próximos de você em Ponta Grossa para o descarte de Eletrônicos</h2>
+  </header>
+
+  <nav>
+    <button onclick="showSection('lixo')">Oque é Lixo eletronico e onde descartalos  </button>
+    <button onclick="showSection('importancia')">Importância do descarte correto e Ideias de Reutilização</button>
+  </nav>
+
+  <section id="lixo" class="active">
+    <h2>Descarte de Lixo Eletrônico: Conheça os Tipos </h2>
+    <img src="https://i1.wp.com/blog.cicloorganico.com.br/wp-content/uploads/2020/08/captura-de-tela-2020-08-20-as-07-49-08.jpg?resize=700%2C640" alt="Lixo Eletrônico">
+
+    <p>O avanço tecnológico traz inúmeros benefícios para o nosso dia a dia, mas também gera um desafio crescente: o lixo eletrônico, ou e-lixo. Com a rápida obsolescência de aparelhos, a quantidade de eletrônicos descartados tem aumentado exponencialmente, e o descarte incorreto pode trazer sérias consequências para o meio ambiente e a saúde humana.</p>
+    <h3>O Que é Lixo Eletrônico?</h3>
+    <p>Lixo eletrônico é todo equipamento elétrico ou eletrônico que atingiu o fim de sua vida útil e foi descartado. Isso inclui uma vasta gama de produtos que utilizamos diariamente. Podemos classificá-los em quatro grandes categorias:</p>
+    <ul>
+      <li><strong>Linha Branca:</strong> Geladeiras, fogões, máquinas de lavar, micro-ondas etc.</li>
+      <li><strong>Linha Azul:</strong> Televisores, computadores, notebooks, celulares, etc.</li>
+      <li><strong>Linha Verde:</strong> Servidores, roteadores, cabos, placas, etc.</li>
+      <li><strong>Pequenos Eletrodomésticos:</strong> Batedeiras, pilhas, ferros de passar, etc.</li>
+    </ul>
+    
+    <h3>Onde Descartar?</h3>
+    <div class="form-group">
+      <label for="cep">Digite seu CEP:</label>
+      <input type="text" id="cep" placeholder="Ex: 84000-000">
+    </div>
+    <div class="form-group">
+      <label for="item">Selecione o item para descarte:</label>
+      <select id="item">
+        <option>Computadores</option>
+        <option>Tablets</option>
+        <option>Monitores</option>
+        <option>Teclados</option>
+        <option>Impressoras</option>
+        <option>Câmeras Fotográficas</option>
+        <option>Aparelhos de Som</option>
+        <option>Televisores</option>
+        <option>Micro-ondas</option>
+        <option>Rádios</option>
+        <option>Telefones</option>
+        <option>Celulares</option>
+        <option>Carregadores</option>
+        <option>Baterias</option>
+        <option>Fios</option>
+      </select>
+    </div>
+    <iframe id="map" src="https://www.google.com/maps" allowfullscreen></iframe>
+  </section>
+
+  <section id="importancia">
+    <h2>Por Que Descartar Corretamente?</h2>
+    <p>O descarte inadequado do lixo eletrônico é um problema grave por diversas razões:</p>
+    <ul>
+      <li><strong>Contaminação Ambiental:</strong> Metais pesados podem contaminar solo e água.</li>
+      <li><strong>Impacto na Saúde Humana:</strong> Riscos de doenças graves por exposição a toxinas.</li>
+      <li><strong>Desperdício de Recursos:</strong> Possuem metais preciosos que podem ser reciclados.</li>
+      <li><strong>Redução da Poluição:</strong> Diminui o lixo em aterros e a poluição do ar.</li>
+      <li><strong>Economia de Energia:</strong> Reciclagem consome menos energia que extração de matéria-prima.</li>
+    </ul>
+    <p><strong>Sua Parte no Ciclo: Descarte Consciente</strong><br>
+    Descartar corretamente é um ato de responsabilidade ambiental e social. Procure pontos de coleta especializados e colabore para um futuro mais limpo e sustentável.</p>
+    
+    <h3>Ideias de Reutilização:</h3>
+    <p>Confira este vídeo com ideias criativas de como reutilizar eletrônicos antigos:</p>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/gEFGEn2nRUY?si=QoRp6l_0OqFHiLVk" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+  </section>
+
+  <script>
+    function showSection(id) {
+      document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+  </script>
+  <footer>
+      <p> IFPR Campus Curitiba-Centro de Refência Ponta Gross></p>
+    <p> Todos os direitos protegidos </p>
+</footer>
+</body>
+</html>

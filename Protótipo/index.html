@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ecotech: Localizador para Descarte Sustentável</title>
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+  />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #e8f5e9;
+    }
+
+    header {
+      background-color: #388e3c;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      background-color: #66bb6a;
+      flex-wrap: wrap;
+    }
+
+    nav button {
+      background-color: #66bb6a;
+      color: white;
+      border: none;
+      padding: 14px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    nav button:hover,
+    nav button.active {
+      background-color: #388e3c;
+    }
+
+    section {
+      display: none;
+      padding: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    section.active {
+      display: block;
+    }
+
+    h2,
+    h3 {
+      margin-top: 20px;
+    }
+
+    ul {
+      margin-left: 20px;
+    }
+
+    .form-group {
+      margin-top: 20px;
+    }
+
+    label,
+    input,
+    button {
+      display: block;
+      margin-top: 5px;
+      width: 100%;
+      padding: 10px;
+    }
+
+    button {
+      background-color: #388e3c;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #2e7031;
+    }
+
+    .custom-image {
+      width: 300px;
+      height: auto;
+      display: block;
+      margin: 20px auto;
+      border-radius: 8px;
+    }
+
+    #map {
+      height: 450px;
+      margin: 20px 0;
+    }
+
+    .details {
+      background: #dcedc8;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+    }
+
+    iframe {
+      width: 100%;
+      max-width: 560px;
+      height: 315px;
+      margin: 20px auto;
+      display: block;
+    }
+
+    footer {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Ecotech: Localizador para Descarte Sustentável</h1>
+    <h2>
+      Encontre os locais mais próximos de você em Ponta Grossa para o descarte
+      de Eletrônicos
+    </h2>
+  </header>
+
+  <nav>
+    <button onclick="showSection('lixo')" class="active">
+      O que é Lixo Eletrônico e Onde Descartá-los
+    </button>
+    <button onclick="showSection('importancia')">
+      Importância do Descarte Correto e Ideias de Reutilização
+    </button>
+  </nav>
+
+  <section id="lixo" class="active">
+    <h2>Descarte de Lixo Eletrônico: Conheça os Tipos</h2>
+    <img
+      src="https://i1.wp.com/blog.cicloorganico.com.br/wp-content/uploads/2020/08/captura-de-tela-2020-08-20-as-07-49-08.jpg?resize=700%2C640"
+      alt="Lixo Eletrônico"
+      class="custom-image"
+    />
+
+    <h3>O Que é Lixo Eletrônico?</h3>
+    <p>
+      Lixo eletrônico é todo equipamento elétrico ou eletrônico que atingiu o
+      fim de sua vida útil. Exemplo:
+    </p>
+    <ul>
+      <li><strong>Linha Branca:</strong> Geladeiras, fogões etc.</li>
+      <li><strong>Linha Azul:</strong> TVs, computadores etc.</li>
+      <li><strong>Linha Verde:</strong> Cabos, servidores etc.</li>
+      <li><strong>Pequenos:</strong> Pilhas, ferros etc.</li>
+    </ul>
+
+    <h3>Onde Descartar?</h3>
+    <div class="form-group">
+      <label for="cep">Digite seu CEP:</label>
+      <input type="text" id="cep" placeholder="Ex: 84000-000" />
+      <button onclick="buscarCEP()">Buscar Localização e Rotas</button>
+    </div>
+
+    <div id="map"></div>
+
+    <h3>Locais de Coleta em Ponta Grossa</h3>
+    <div id="locaisDetalhes"></div>
+  </section>
+
+  <section id="importancia">
+    <h2>Por Que Descartar Corretamente?</h2>
+    <ul>
+      <li><strong>Contaminação:</strong> Metais pesados no solo e água.</li>
+      <li><strong>Saúde:</strong> Riscos de doenças.</li>
+      <li><strong>Recursos:</strong> Metais recicláveis.</li>
+    </ul>
+    <h3>Ideias de Reutilização</h3>
+    <p>Confira este vídeo com ideias criativas:</p>
+    <iframe
+      src="https://www.youtube.com/embed/gEFGEn2nRUY"
+      allowfullscreen
+    ></iframe>
+  </section>
+
+  <footer>
+    <p>IFPR - Campus Curitiba - Centro de Referência Ponta Grossa</p>
+    <p>Todos os direitos protegidos</p>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+  <script>
+    const locais = [
+      {
+        nome: "R&A Lidera",
+        lat: -25.0771,
+        lng: -50.1412,
+        endereco: "R. Rio Paraná, 112 - Chapada",
+        horario: "Não atendeu",
+        tel: "+55 42 99929-5248",
+      },
+      {
+        nome: "Recisul",
+        lat: -25.1067,
+        lng: -50.1567,
+        endereco: "R. Tobias Moscoso, 743 - Ronda",
+        horario: "Horário não informado",
+        tel: "+55 42 3223-3359",
+      },
+      {
+        nome: "Sustentar Resíduos",
+        lat: -25.1234,
+        lng: -50.1345,
+        endereco: "R. Avelino Rosa Neto, 292 - Boa Vista",
+        horario: "Horário não informado",
+        tel: "+55 42 93300-1181",
+      },
+      {
+        nome: "Usina de Reciclagem",
+        lat: -25.0901,
+        lng: -50.1303,
+        endereco: "Cará-Cará",
+        horario: "Horário não informado",
+        tel: "+55 42 3025-7575",
+      },
+      {
+        nome: "Zero Resíduos",
+        lat: -25.0987,
+        lng: -50.1609,
+        endereco: "R. Arquiteto Nicolau Ferigotti, 300 - Uvaranas",
+        horario: "Talvez seja paga",
+        tel: "+55 42 3220-0300",
+      },
+      {
+        nome: "Vivo - Loja",
+        lat: -25.0834,
+        lng: -50.1523,
+        endereco: "Av. Dr. Vicente Machado, 505",
+        horario: "Seg‑Sex: 09h‑19h",
+        tel: "(42) 99119-9292",
+      },
+    ];
+
+    let map = L.map("map").setView([-25.0946, -50.1637], 13);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+
+    const iconVerde = L.icon({
+      iconUrl: "https://maps.google.com/mapfiles/ms/icons/green-dot.png",
+      iconSize: [32, 32],
+      iconAnchor: [16, 32],
+    });
+    const iconAzul = L.icon({
+      iconUrl: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+      iconSize: [32, 32],
+      iconAnchor: [16, 32],
+    });
+
+    // Marcadores dos locais (verde)
+    locais.forEach((loc) => {
+      L.marker([loc.lat, loc.lng], { icon: iconVerde })
+        .addTo(map)
+        .bindPopup(
+          `<strong>${loc.nome}</strong><br>${loc.endereco}<br>${loc.tel}<br>${loc.horario}`
+        );
+    });
+
+    // Mostra detalhes embaixo
+    const detalhes = document.getElementById("locaisDetalhes");
+    locais.forEach((l) => {
+      const div = document.createElement("div");
+      div.className = "details";
+      div.innerHTML = `<strong>${l.nome}</strong><br>Endereço: ${l.endereco}<br>Telefone: ${l.tel}<br>Horário: ${l.horario}`;
+      detalhes.appendChild(div);
+    });
+
+    // Armazena rotas para remover depois
+    let rotas = [];
+    let marcadorUser = null;
+
+    // Função para calcular distância em km entre duas coordenadas usando Haversine
+    function calcularDistancia(lat1, lon1, lat2, lon2) {
+      function toRad(x) {
+        return (x * Math.PI) / 180;
+      }
+
+      var R = 6371; // km
+      var dLat = toRad(lat2 - lat1);
+      var dLon = toRad(lon2 - lon1);
+      var a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(toRad(lat1)) *
+          Math.cos(toRad(lat2)) *
+          Math.sin(dLon / 2) *
+          Math.sin(dLon / 2);
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      var d = R * c;
+      return d;
+    }
+
+    // Paleta de cores para rotas
+    const coresRotas = [
+      "#1f77b4",
+      "#ff7f0e",
+      "#2ca02c",
+      "#d62728",
+      "#9467bd",
+      "#8c564b",
+      "#e377c2",
+    ];
+
+    async function buscarCEP() {
+      const cep = document.getElementById("cep").value.replace(/\D/g, "");
+      if (cep.length !== 8) return alert("CEP inválido.");
+
+      try {
+        // Busca dados do CEP
+        const resCep = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+        const dataCep = await resCep.json();
+        if (dataCep.erro) return alert("CEP não encontrado.");
+
+        const endereco = `${dataCep.logradouro}, ${dataCep.localidade}, ${dataCep.uf}, Brasil`;
+
+        // Geocodifica endereço para latlng
+        const resGeo = await fetch(
+          `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+            endereco
+          )}`
+        );
+        const dataGeo = await resGeo.json();
+        if (!dataGeo.length) return alert("Endereço não encontrado.");
+
+        const userLatLng = L.latLng(dataGeo[0].lat, dataGeo[0].lon);
+
+        // Remove rotas anteriores
+        rotas.forEach((r) => map.removeControl(r));
+        rotas = [];
+
+        // Remove marcador antigo do usuário se existir
+        if (marcadorUser) {
+          map.removeLayer(marcadorUser);
+          marcadorUser = null;
+        }
+
+        // Adiciona marcador azul para usuário
+        marcadorUser = L.marker(userLatLng, { icon: iconAzul })
+          .addTo(map)
+          .bindPopup("Você está aqui")
+          .openPopup();
+
+        // Centraliza no usuário
+        map.setView(userLatLng, 13);
+
+        // Filtra locais até 6km
+        const locaisProximos = locais.filter((loc) => {
+          const dist = calcularDistancia(
+            userLatLng.lat,
+            userLatLng.lng,
+            loc.lat,
+            loc.lng
+          );
+          return dist <= 6;
+        });
+
+        if (!locaisProximos.length)
+          return alert("Nenhum local de descarte encontrado até 6km.");
+
+        // Para cada local próximo, cria uma rota com cor diferente
+        locaisProximos.forEach((loc, index) => {
+          const cor = coresRotas[index % coresRotas.length];
+
+          const rota = L.Routing.control({
+            waypoints: [userLatLng, L.latLng(loc.lat, loc.lng)],
+            lineOptions: {
+              styles: [{ color: cor, opacity: 0.8, weight: 5 }],
+            },
+            addWaypoints: false,
+            draggableWaypoints: false,
+            fitSelectedRoutes: false,
+            createMarker: () => null,
+          }).addTo(map);
+
+          rotas.push(rota);
+        });
+      } catch (error) {
+        alert("Erro ao buscar localização: " + error.message);
+      }
+    }
+
+    function showSection(id) {
+      document.querySelectorAll("section").forEach((sec) => {
+        sec.classList.remove("active");
+      });
+      document.getElementById(id).classList.add("active");
+
+      document.querySelectorAll("nav button").forEach((btn) => {
+        btn.classList.remove("active");
+      });
+      event.target.classList.add("active");
+    }
+  </script>
+</body>
+</html>
