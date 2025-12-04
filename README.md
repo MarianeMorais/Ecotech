@@ -7,7 +7,109 @@ O desenvolvimento da plataforma utilizou a metodologia Scrum e utiliza as seguin
 
 O EcoTech contribui para práticas sustentáveis, reduz os impactos do descarte inadequado, estimula a reciclagem e reaproveitamento de materiais, e promove inovação e criatividade na reutilização de equipamentos eletrônicos.
 
-## Como instalar(opicional)
+## Tecnologias Utilizadas:
+
+- **Node.js**
+- **Express.js**
+- **PostgreSQL**
+- **pg (PostgreSQL client)**
+- **Body-parser**
+- **Leaflet**
+- **Nominatim Geocoding API**
+
+## Estrutura de Pasta
+
+```
+Projeto/
+│
+├─ empresas/
+│ ├─ servidor.js
+│ ├─ package.json
+│ ├─ node_modules/
+│ ├─ prototipo/
+│   ├─ index-protótipo.html
+│   ├─ estilo.css
+│   ├─ leaflet.js
+│   ├─ leaflet-routing-machine.js
+│   ├─ imagens/
+│
+└─ README.md
+```
+
+# Como instalar
+
+## Pré-requisitos
+
+- Node.js 18+
+- npm
+- PostgreSQL 14+
+- pgAdmin (opcional)
+
+---
+
+## Instalação e Configuração
+
+### Clone o repositório
+
+```
+bash
+git clone https://github.com/SEU-USUARIO/SEU-REPOSITORIO.git
+cd empresas
+```
+
+### Instale as dependências
+
+```
+npm installs
+```
+
+### Configure o banco PostgreSQL
+Crie o banco:
+
+```
+CREATE DATABASE empresas;
+```
+
+
+Crie a tabela "empresas"
+```
+CREATE TABLE IF NOT EXISTS public.empresas
+(
+    cnpj integer NOT NULL DEFAULT nextval('empresas_id_seq'::regclass),
+    nome character varying(50) COLLATE pg_catalog."default",
+    endereco character varying(100) COLLATE pg_catalog."default",
+    residuos character varying(50) COLLATE pg_catalog."default",
+    horario time without time zone,
+    email character varying(255) COLLATE pg_catalog."default",
+    tel character varying(25)[] COLLATE pg_catalog."default",
+    CONSTRAINT empresas_pkey PRIMARY KEY (cnpj)
+);
+```
+### Configure o servidor
+```
+const pool = new Pool({
+  user: "postgres",
+  host: "localhost",
+  database: "empresas",
+  password: "SUA_SENHA",
+  port: 5432
+});
+```
+
+### Executando o sistema
+Use:
+```
+npm run dev
+```
+Ou
+```
+node servidor.js
+```
+
+## Abra no navegador
+```
+http://localhost:3000/index-protótipo.html
+```
 
 ## Como usar
 ### Sessão 1: Onde Descartar?
@@ -31,3 +133,7 @@ Esta última sessão serve para cadastrar empresas que desejam contribuir para a
 - **Passo 1: Preencha todos os campos que estão disponibilizados com os dados da empresa(obrigatório).**
 - **Passo 2: Selsecione o campo onde concorda com os termos apresentados(obrigatório).**
 - **Observação: Para o cadastro definitivo, os administradores vão avaliar se as informações são reais e se o cadastro foi realizado por algum responsável da empresa.**
+
+## Equipe
+- Mariane Morais
+- Ricardo Tizon
