@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro de Empresas - EcoTech</title>
+  <link rel="stylesheet" href="estilo.css">
+  <style>
+    body {
+      background-color: #111;
+      color: #eee;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #0f0;
+      padding: 15px;
+      text-align: center;
+    }
+    header h1 {
+      color: #111;
+    }
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      background: #222;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 12px #0f0;
+    }
+    h2 {
+      color: #0f0;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    form label {
+      display: block;
+      margin-top: 12px;
+      font-weight: bold;
+    }
+    form input, form select, form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border: none;
+      border-radius: 6px;
+      background: #333;
+      color: #eee;
+    }
+    form input[type="checkbox"] {
+      width: auto;
+      margin-right: 10px;
+    }
+    form button {
+      background: #0f0;
+      color: #111;
+      border: none;
+      padding: 12px;
+      margin-top: 20px;
+      width: 100%;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    form button:hover {
+      background: #0c0;
+    }
+    .voltar {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+    }
+    .voltar a {
+      color: #0f0;
+      text-decoration: none;
+    }
+    .voltar a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>EcoTech - Cadastro de Empresas</h1>
+  </header>
+  <div class="container">
+    <h2>Cadastre sua Empresa</h2>
+    <form action="#" method="post">
+      <label for="nome">Nome da Empresa:</label>
+      <input type="text" id="nome" name="nome" required>
+
+      <label for="telefone">Telefone:</label>
+      <input type="tel" id="telefone" name="telefone" required>
+
+      <label for="cnpj">CNPJ:</label>
+      <input type="text" id="cnpj" name="cnpj" required>
+
+      <label for="endereco">Endereço Completo:</label>
+      <textarea id="endereco" name="endereco" rows="3" required></textarea>
+
+      <label for="email">E-mail:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="horario">Horário de Funcionamento:</label>
+      <input type="text" id="horario" name="horario" required>
+
+      <label for="tipo_lixo">Tipo de Lixo Eletrônico Recebido:</label>
+      <input type="text" id="tipo_lixo" name="tipo_lixo" required>
+
+      <label>
+        <input type="checkbox" id="consentimento" name="consentimento" required>
+        Aceito que meus dados sejam exibidos no site EcoTech
+      </label>
+
+      <button type="submit">Cadastrar Empresa</button>
+    </form>
+    <div style="margin-top:20px; text-align:center;">
+      <button onclick="window.location.href='index - Copia.html'">Voltar</button>
+    </div>
+  </div>
+</body>
+</html>

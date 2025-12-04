@@ -1,0 +1,233 @@
+/* ===== Paleta ===== */
+:root{
+  --bg: #000000;           /* fundo preto */
+  --panel: #0f0f0f;        /* painéis */
+  --panel-2:#111;          /* barras/apoio */
+  --text: #9fffb3;         /* verde normal dos textos */
+  --text-soft:#bfffcf;     /* apoio */
+  --neon: #39ff14;         /* verde neon para títulos/destaques */
+  --border: #39ff14;
+}
+
+/* Reset básico */
+*{ margin:0; padding:0; box-sizing:border-box; }
+
+html, body{
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* ===== Header ===== */
+header{
+  background: var(--bg);
+  padding: 20px;
+  border-bottom: 1px solid var(--border);
+}
+.header-inner{
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  text-align: left;
+}
+/* aceita .logo e .logo-ecotech */
+.logo, .logo-ecotech{
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+.titles h1{
+  font-size: 40px;
+  color: var(--neon);
+  line-height: 1.1;
+  text-shadow: 0 0 10px rgba(57,255,20,0.4);
+}
+#h{
+  margin-top: 6px;
+  font-size: 22px;
+  color: var(--neon);
+}
+.tagline{
+  margin-top: 4px;
+  color: var(--text);
+}
+
+/* ===== Navbar ===== */
+nav{
+  display: flex;
+  justify-content: center;
+  background: var(--panel-2);
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--border);
+}
+nav button{
+  background: transparent;
+  color: var(--text);
+  border: none;
+  padding: 14px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+nav button:hover,
+nav button.active{
+  background: var(--neon);
+  color: #000;
+}
+
+/* ===== Sections ===== */
+section{
+  display: none;
+  padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+section.active{ display:block; }
+
+h1, h2, h3{
+  color: var(--neon);
+}
+h3{ margin-top: 20px; font-size: 25px; }
+h2{ margin-top: 20px; }
+p{ font-size: 20px; }
+
+ul{
+  margin-left: 20px;
+  font-size: 20px;
+}
+a{ color: var(--text-soft); }
+a:hover{ color: var(--neon); }
+
+/* ===== Form / Inputs / Botões ===== */
+.form-group{ margin-top: 20px; }
+
+label, input, button{
+  display:block;
+  margin-top: 5px;
+  width: 100%;
+  padding: 10px;
+}
+
+input[type="text"]{
+  background: #0b0b0b;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  outline: none;
+}
+
+button{
+  background: var(--neon);
+  color: #000;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+  width: 200px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+button:hover{
+  background: #00ff66;
+}
+
+/* ===== Map ===== */
+#map{
+  height: 450px;
+  margin: 20px 0;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+}
+
+/* >>> Texto do mapa (Leaflet) em preto para máxima legibilidade */
+.leaflet-container .leaflet-control,
+.leaflet-container .leaflet-control a,
+.leaflet-container .leaflet-popup-content,
+.leaflet-container .leaflet-popup-content a,
+.leaflet-control-attribution,
+.leaflet-control-attribution a,
+.leaflet-bar a,
+.leaflet-routing-container,
+.leaflet-routing-container *{
+  color: #000 !important;
+}
+.leaflet-control-attribution{
+  background: rgba(255,255,255,0.9);
+  padding: 0 6px;
+  border-radius: 4px;
+}
+
+/* ===== Caixas de rota (geradas no JS) ===== */
+#gps .leaflet-routing-container{
+  background-color: #39ff14;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 16px #39ff1440;
+  font-size: 14px;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+  color: #fff9f9; 
+}
+#gps .leaflet-routing-container h2{
+  font-size: 16px;
+  color: var(--neon);
+  margin-bottom: 10px;
+}
+
+/* Detalhes da lista de locais */
+.details{
+  background: #0e0e0e;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  border: 1px solid #1f1f1f;
+}
+
+/* Vídeos */
+iframe{
+  width: 100%;
+  max-width: 560px;
+  height: 315px;
+  margin: 20px auto;
+  display: block;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+}
+
+/* Footer */
+footer{
+  background: #111;
+  color: var(--text);
+  text-align: center;
+  padding: 10px;
+  margin-top: 40px;
+  border-top: 1px solid var(--border);
+}
+#n{ font-size: 15px; }
+
+/* Select */
+select{
+  background: #0b0b0b;
+  color: var(--text);
+  border-radius: 20px;
+  font-size: 15px;
+  padding: 5px 10px;
+  margin-top: 10px;
+  border: 1px solid var(--border);
+}
+
+/* Responsividade */
+@media (max-width: 600px){
+  #map{ height: 300px; }
+  button{ width: 100%; }
+  .header-inner{
+    flex-direction: column;
+    text-align: center;
+  }
+}
